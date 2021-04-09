@@ -41,4 +41,4 @@ def drugUpdate(request, pk):
 def drugDelete(request, pk):
     drug = models.Drug.objects.get(id=pk)
     drug.delete()
-    return Response('Item deleted')
+    return Response('Item deleted successfully')
