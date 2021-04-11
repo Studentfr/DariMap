@@ -73,9 +73,9 @@ def pharmacyCreate(request):
 
 
 @api_view(['POST'])
-def drugUpdate(request, pk):
+def pharmacyUpdate(request, pk):
     pharmacy = models.Pharmacy.objects.get(id=pk)
-    serializer = DrugSerializer(instance=pk, data=request.data)
+    serializer = DrugSerializer(instance=pharmacy, data=request.data)
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
