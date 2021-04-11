@@ -10,17 +10,20 @@ from mainapp import models
 def index(request):
     return Response("hello")
 
+
 @api_view(['GET'])
 def drugList(request):
     drugs = models.Drug.objects.all()
     serializer = DrugSerializer(drugs, many=True)
     return Response(serializer.data)
 
+
 @api_view(['GET'])
 def drugDetail(request, pk):
-    drugs = models.Drug.objects.get(id=pk)
-    serializer = DrugSerializer(drugs, many=False)
+    drug = models.Drug.objects.get(id=pk)
+    serializer = DrugSerializer(drug, many=False)
     return Response(serializer.data)
+
 
 @api_view(['POST'])
 def drugCreate(request):
@@ -28,6 +31,7 @@ def drugCreate(request):
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
+
 
 @api_view(['POST'])
 def drugUpdate(request, pk):
@@ -37,8 +41,48 @@ def drugUpdate(request, pk):
         serializer.save()
     return Response(serializer.data)
 
+
 @api_view(['DELETE'])
 def drugDelete(request, pk):
     drug = models.Drug.objects.get(id=pk)
     drug.delete()
-    return Response('Item deleted successfully')
+    return Response('Drug has deleted successfully')
+
+
+# Pharmacy vies
+@api_view(['GET'])
+def pharmacyList(request):
+    pharmacies = models.Pharmacy.objects.all()
+    serializer = PharmacySerializer(pharmacies, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def pharmacyDetail(request, pk):
+    pharmacy = models.Pharmacy.objects.get(id=pk)
+    serializer = PharmacySerializer(pharmacy, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def pharmacyCreate(request):
+    serializer = PharmacySerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def drugUpdate(request, pk):
+    pharmacy = models.Pharmacy.objects.get(id=pk)
+    serializer = DrugSerializer(instance=pk, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+def pharmacyDelete(request, pk):
+    pharmacy = models.Pharmacy.objects.get(id=pk)
+    pharmacy.delete()
+    return Response('Pharmacy has been deleted successfully')
