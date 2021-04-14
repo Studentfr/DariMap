@@ -87,11 +87,13 @@ def pharmacyDelete(request, pk):
     pharmacy.delete()
     return Response('Pharmacy has been deleted successfully')
 
+
 @api_view(['GET'])
 def phDrugList(request):
     phDrugs = models.Pharmacy_Drug.objects.all()
     serializer = Pharmacy_DrugSerializer(phDrugs, many=True)
     return Response(serializer.data)
+
 
 @api_view(['GET'])
 def phDrugDetail(request, pk):
@@ -99,12 +101,14 @@ def phDrugDetail(request, pk):
     serializer = Pharmacy_DrugSerializer(phDrug, many=False)
     return Response(serializer.data)
 
+
 @api_view(['POST'])
 def phDrugCreate(request):
     serializer = Pharmacy_DrugSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
+
 
 @api_view(['POST'])
 def phDrugUpdate(request, pk):
@@ -114,8 +118,48 @@ def phDrugUpdate(request, pk):
         serializer.save()
     return Response(serializer.data)
 
+
 @api_view(['DELETE'])
 def phDrugDelete(request, pk):
     phDrug = models.Pharmacy_Drug.objects.get(id=pk)
     phDrug.delete()
     return Response('Drug in the Pharmacy has been deleted successfully')
+
+
+@api_view(['GET'])
+def userList(request):
+    users = models.User.objects.all()
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def userDetail(request, pk):
+    user = models.User.objects.get(id=pk)
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def userCreate(request):
+    serializer = UserSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def userUpdate(request, pk):
+    user = models.User.objects.get(id=pk)
+    serializer = UserSerializer(instance=user, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+def userDelete(request, pk):
+    user = models.User.objects.get(id=pk)
+    if user.id != 1:
+        user.delete()
+    return Response('User has been deleted successfully')
