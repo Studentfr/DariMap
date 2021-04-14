@@ -75,7 +75,7 @@ def pharmacyCreate(request):
 @api_view(['POST'])
 def pharmacyUpdate(request, pk):
     pharmacy = models.Pharmacy.objects.get(id=pk)
-    serializer = DrugSerializer(instance=pharmacy, data=request.data)
+    serializer = PharmacySerializer(instance=pharmacy, data=request.data)
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
@@ -86,3 +86,36 @@ def pharmacyDelete(request, pk):
     pharmacy = models.Pharmacy.objects.get(id=pk)
     pharmacy.delete()
     return Response('Pharmacy has been deleted successfully')
+
+@api_view(['GET'])
+def phDrugList(request):
+    phDrugs = models.Pharmacy_Drug.objects.all()
+    serializer = Pharmacy_DrugSerializer(phDrugs, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def phDrugDetail(request, pk):
+    phDrug = models.Pharmacy_Drug.objects.get(id=pk)
+    serializer = Pharmacy_DrugSerializer(phDrug, many=False)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def phDrugCreate(request):
+    serializer = Pharmacy_DrugSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def phDrugUpdate(request, pk):
+    phDrug = models.Pharmacy_Drug.objects.get(id=pk)
+    serializer = Pharmacy_DrugSerializer(instance=phDrug, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+@api_view(['DELETE'])
+def phDrugDelete(request, pk):
+    phDrug = models.Pharmacy_Drug.objects.get(id=pk)
+    phDrug.delete()
+    return Response('Drug in the Pharmacy has been deleted successfully')
