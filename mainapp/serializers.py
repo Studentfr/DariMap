@@ -13,6 +13,13 @@ class PharmacySerializer(serializers.ModelSerializer):
         model = Pharmacy
         fields = '__all__'
 
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
+
+
 class Pharmacy_DrugSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pharmacy_Drug
