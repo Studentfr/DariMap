@@ -29,5 +29,10 @@ urlpatterns = [
     path('user-delete/<int:pk>/', views.userDelete, name="user-delete"),
     path('user-create/', views.userCreate, name="user-create"),
 
+    path('favourite-drug-list/', views.fvDrugList, name="favourite-drug-list"),
+    path('favourite-drug-detail/<int:pk>/', views.fvDrugDetail, name="favourite-drug-detail"),
+    path('favourite-drug-update/<int:pk>/', views.fvDrugUpdate, name="favourite-drug-update"),
+    path('favourite-drug-delete/<int:pk>/', views.fvDrugDelete, name="favourite-drug-delete"),
+    path('favourite-drug-create/', views.fvDrugDelete, name="favourite-drug-create"),
 
 ]

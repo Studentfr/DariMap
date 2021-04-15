@@ -160,6 +160,43 @@ def userUpdate(request, pk):
 @api_view(['DELETE'])
 def userDelete(request, pk):
     user = models.User.objects.get(id=pk)
-    if user.id != 1:
-        user.delete()
+    user.delete()
     return Response('User has been deleted successfully')
+
+
+@api_view(['GET'])
+def fvDrugList(request):
+    fvDrugs = models.Favourite_Drug.objects.all()
+    serializer = Favourite_DrugSerializer(instance=fvDrugs, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def fvDrugDetail(request, pk):
+    fvDrug = models.Favourite_Drug.objects.get(id=pk)
+    serializer = Favourite_DrugSerializer(fvDrug, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def fvDrugCreate(request):
+    serializer = Favourite_DrugSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def fvDrugUpdate(request, pk):
+    fvDrug = models.Favourite_Drug.objects.get(id=pk)
+    serializer = Favourite_DrugSerializer(instance=fvDrug, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+def fvDrugDelete(request, pk):
+    fvDrug = models.Favourite_Drug.objects.get(id=pk)
+    fvDrug.delete()
+    return Response('Favourite Drug has been deleted successfully')

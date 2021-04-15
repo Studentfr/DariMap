@@ -24,3 +24,15 @@ class Pharmacy_DrugSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pharmacy_Drug
         fields = '__all__'
+
+
+class Favourite_DrugSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Favourite_Drug
+        fields = '__all__'
+
+
+class TransactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Transaction
+        fields = '__all__'
