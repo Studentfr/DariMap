@@ -200,3 +200,41 @@ def fvDrugDelete(request, pk):
     fvDrug = models.Favourite_Drug.objects.get(id=pk)
     fvDrug.delete()
     return Response('Favourite Drug has been deleted successfully')
+
+
+@api_view(['GET'])
+def transactionList(request):
+    transactions = models.Transaction.objects.all()
+    serializer = TransactionSerializer(transactions, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def transactionDetail(request, pk):
+    transaction = models.Transaction.objects.get(id=pk)
+    serializer = TransactionSerializer(transaction, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def transactionCreate(request):
+    serializer = TransactionSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def transactionUpdate(request, pk):
+    transaction = models.Transaction.objects.get(id=pk)
+    serializer = TransactionSerializer(instance=transaction, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+def transactionDelete(request, pk):
+    transaction = models.Transaction.objects.get(id=pk)
+    transaction.delete()
+    return Response('Transaction has been deleted successfully')
