@@ -203,6 +203,44 @@ def fvDrugDelete(request, pk):
 
 
 @api_view(['GET'])
+def coordinateList(request):
+    coordinates = models.Coordinate.objects.all()
+    serializer = CoordinateSerializer(coordinates, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def coordinateDetail(request, pk):
+    coordinate = models.Coordinate.objects.get(id=pk)
+    serializer = CoordinateSerializer(coordinate, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def coordinateCreate(request):
+    serializer = CoordinateSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def coordinateUpdate(request, pk):
+    coordinate = models.Coordinate.objects.get(id=pk)
+    serializer = CoordinateSerializer(instance=coordinate, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+def coordinateDelete(request, pk):
+    coordinate = models.Coordinate.objects.get(id=pk)
+    coordinate.delete()
+    return Response('Coordinate has been deleted successfully')
+
+
+@api_view(['GET'])
 def transactionList(request):
     transactions = models.Transaction.objects.all()
     serializer = TransactionSerializer(transactions, many=True)
@@ -238,3 +276,41 @@ def transactionDelete(request, pk):
     transaction = models.Transaction.objects.get(id=pk)
     transaction.delete()
     return Response('Transaction has been deleted successfully')
+
+
+@api_view(['GET'])
+def fvPharmacyList(request):
+    fvPharmacies = models.Favourite_Pharmacy.objects.all()
+    serializer = FavouritePharmacySerializer(fvPharmacies, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def fvPharmacyDetail(request, pk):
+    fvPharmacy = models.Favourite_Pharmacy.objects.get(id=pk)
+    serializer = FavouritePharmacySerializer(fvPharmacy, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def fvPharmacyCreate(request):
+    serializer = FavouritePharmacySerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def fvPharmacyUpdate(request, pk):
+    fvPharmacy = models.Favourite_Pharmacy.objects.get(id=pk)
+    serializer = FavouritePharmacySerializer(instance=fvPharmacy, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+def fvPharmacyDelete(request, pk):
+    fvPharmacy = models.Favourite_Pharmacy.objects.get(id=pk)
+    fvPharmacy.delete()
+    return Response('Favourite pharmacy has been deleted successfully')
