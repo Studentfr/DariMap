@@ -29,5 +29,10 @@ urlpatterns = [
     path('user-delete/<int:pk>/', views.userDelete, name="user-delete"),
     path('user-create/', views.userCreate, name="user-create"),
 
+    path('coordinate-list/', views.coordinateList, name="coordinate-list"),
+    path('coordinate-detail/<int:pk>/', views.coordinateDetail, name="coordinate-detail"),
+    path('coordinate-update/<int:pk>/', views.coordinateUpdate, name="coordinate-update"),
+    path('coordinate-delete/<int:pk>/', views.coordinateDelete, name="coordinate-delete"),
+    path('coordinate-create/', views.coordinateCreate, name="coordinate-create"),
 
 ]

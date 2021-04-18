@@ -163,3 +163,42 @@ def userDelete(request, pk):
     if user.id != 1:
         user.delete()
     return Response('User has been deleted successfully')
+
+######
+
+@api_view(['GET'])
+def coordinateList(request):
+    coordinates = models.Coordinate.objects.all()
+    serializer = CoordinateSerializer(coordinates, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def coordinateDetail(request, pk):
+    coordinate = models.Coordinate.objects.get(id=pk)
+    serializer = CoordinateSerializer(coordinate, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def coordinateCreate(request):
+    serializer = CoordinateSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def coordinateUpdate(request, pk):
+    coordinate = models.Coordinate.objects.get(id=pk)
+    serializer = CoordinateSerializer(instance=coordinate, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+def coordinateDelete(request, pk):
+    coordinate = models.Coordinate.objects.get(id=pk)
+    coordinate.delete()
+    return Response('Coordinate has been deleted successfully')
