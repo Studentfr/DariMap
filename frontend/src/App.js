@@ -4,50 +4,65 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 function App() {
 
     const [mapConfig, setMapConfig] = React.useState({
-        center: [51.097679, 71.430936],
+        center: [54.8732, 69.1505],
         zoom: 13,
         scrollWheelZoom: true
     })
 
-    const drugstores = [
+    const [pharmacies, setPharmacies] = React.useState([])
+
+    useEffect(() => {
+        fetch('api/pharmacy-list')
+            .then(response => response.json())
+            .then((pharmacies) => {
+                setPharmacies(pharmacies)
+                console.log(pharmacies)
+            },
+            (error) => {
+                setPharmacies(mockPharmacies)
+                console.log(error)
+            })
+    }, [])
+
+    const mockPharmacies = [
         {
             id: 1,
             name: 'Здоровье',
-            coordinates: {
-                lat: 51.097906,
-                long: 71.414127
+            coordinate_id: {
+                latitude: 51.097906,
+                longitude: 71.414127
             }
         },
         {
             id: 2,
             name: 'Солнечный',
-            coordinates: {
-                lat: 51.088947,
-                long: 71.442401
+            coordinate_id: {
+                latitude: 51.088947,
+                longitude: 71.442401
             }
         },
         {
             id: 3,
             name: 'Северный',
-            coordinates: {
-                lat: 51.134889,
-                long: 71.462434
+            coordinate_id: {
+                latitude: 51.134889,
+                longitude: 71.462434
             }
         },
         {
             id: 4,
             name: 'Семейный',
-            coordinates: {
-                lat: 51.152443,
-                long: 71.440453
+            coordinate_id: {
+                latitude: 51.152443,
+                longitude: 71.440453
             }
         },
         {
             id: 5,
             name: 'Социальная аптека',
-            coordinates: {
-                lat: 51.155555,
-                long: 71.465755
+            coordinate_id: {
+                latitude: 51.155555,
+                longitude: 71.465755
             }
         },
     ]
@@ -119,9 +134,17 @@ function App() {
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {drugstores.map((store, i) => {
+
+            {pharmacies.map((store) => {
                 return (
-                    <Marker position={[store.coordinates.lat, store.coordinates.long]} key={i}>
+                    <Marker position={[store.coordinate_id.latitude, store.coordinate_id.longitude]}
+                            key={store.id}
+                            eventHandlers={{
+                                click: () => {
+
+                                },
+                            }}
+                    >
                         <Popup>
                             <strong>{store.name}</strong>
                         </Popup>
