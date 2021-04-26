@@ -54,14 +54,18 @@ def drugDelete(request, pk):
 def pharmacyList(request):
     pharmacies = models.Pharmacy.objects.all()
     serializer = PharmacySerializer(pharmacies, many=True)
+    print(serializer.data)
+
     return Response(serializer.data)
 
 
 @api_view(['GET'])
 def pharmacyDetail(request, pk):
     pharmacy = models.Pharmacy.objects.get(id=pk)
+    # coordinates = models.Coordinate.objects.filter(id=pharmacy.coordinate_id)
+    coordinateSerializer = CoordinateSerializer(pharmacy.coordinate_id, many=False)
     serializer = PharmacySerializer(pharmacy, many=False)
-    return Response(serializer.data)
+    return Response({"Pharmacy": serializer.data, "Coordinate": coordinateSerializer.data})
 
 
 @api_view(['POST'])
