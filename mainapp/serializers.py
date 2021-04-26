@@ -8,10 +8,18 @@ class DrugSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class CoordinateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Coordinate
+        fields = ['latitude', 'longitude']
+
+
 class PharmacySerializer(serializers.ModelSerializer):
+    coordinate_id = CoordinateSerializer()
+
     class Meta:
         model = Pharmacy
-        fields = '__all__'
+        fields = ['id', 'name', 'coordinate_id']
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -25,10 +33,6 @@ class Pharmacy_DrugSerializer(serializers.ModelSerializer):
         model = Pharmacy_Drug
         fields = '__all__'
 
-class CoordinateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Coordinate
-        fields = '__all__'
 
 class FavouritePharmacySerializer(serializers.ModelSerializer):
     class Meta:
