@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import Sidebar from "./Components/Sidebar/Sidebar";
 
 function App() {
 
