@@ -130,29 +130,34 @@ function App() {
     }
 
     return (
-        <MapContainer style={styles.mapContainer} center={mapConfig.center} zoom={mapConfig.zoom} scrollWheelZoom={mapConfig.scrollWheelZoom}>
-            <TileLayer
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
+        <div>
+            <!--TODO: Implement Sidebar by using https://github.com/Maj07/react-leaflet-example-->
+<!--          <Sidebar/> -->
+            <div>
+                <MapContainer style={styles.mapContainer} center={mapConfig.center} zoom={mapConfig.zoom} scrollWheelZoom={mapConfig.scrollWheelZoom}>
+                    <TileLayer
+                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    {pharmacies.map((store) => {
+                        return (
+                            <Marker position={[store.coordinate_id.latitude, store.coordinate_id.longitude]}
+                                    key={store.id}
+                                    eventHandlers={{
+                                        click: () => {
 
-            {pharmacies.map((store) => {
-                return (
-                    <Marker position={[store.coordinate_id.latitude, store.coordinate_id.longitude]}
-                            key={store.id}
-                            eventHandlers={{
-                                click: () => {
-
-                                },
-                            }}
-                    >
-                        <Popup>
-                            <strong>{store.name}</strong>
-                        </Popup>
-                    </Marker>
-                )
-            })}
-        </MapContainer>
+                                        },
+                                    }}
+                            >
+                                <Popup>
+                                    <strong>{store.name}</strong>
+                                </Popup>
+                            </Marker>
+                        )
+                    })}
+                </MapContainer>
+            </div>
+        </div>
     )
 }
 
