@@ -102,7 +102,7 @@ Creates a pharmacy with consequent id
 
 ``
 {
-      "name": "aspirin"
+      
 }
 ``
 ###['POST'] pharmacy-update/1
@@ -110,8 +110,7 @@ Updates pharmacy on a particular id
 
 ``
 {   
-    "id" : "3",
-    "name": "mask"
+
 }
 ``
 ###['DELETE'] pharmacy-delete/1
