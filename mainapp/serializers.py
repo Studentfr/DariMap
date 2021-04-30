@@ -19,7 +19,7 @@ class PharmacySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Pharmacy
-        fields = ['id', 'name', 'coordinate_id']
+        fields = ['id', 'name', 'address', 'coordinate_id']
 
 
 class UserSerializer(serializers.ModelSerializer):
