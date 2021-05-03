@@ -1,3 +1,4 @@
+
 #DariMap
 
 ##Drug
@@ -119,3 +120,4 @@ Deletes pharmacy on a particular id
 ``
 "Pharmacy has deleted successfully"
 ``
+

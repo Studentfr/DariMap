@@ -29,6 +29,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class Pharmacy_DrugSerializer(serializers.ModelSerializer):
+    drug_id = DrugSerializer()
     class Meta:
         model = Pharmacy_Drug
         fields = '__all__'
