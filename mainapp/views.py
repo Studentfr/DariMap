@@ -1,5 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from rest_framework import generics, filters
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import *
@@ -16,6 +17,17 @@ def drugList(request):
     drugs = models.Drug.objects.all()
     serializer = DrugSerializer(drugs, many=True)
     return Response(serializer.data)
+
+
+class drugListDetailFilter(generics.ListAPIView):
+    queryset = models.Pharmacy_Drug.objects.all()
+    serializer_class = Pharmacy_DrugSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['^drug_id__name']
+    def get_queryset(self):
+        slug = self.request.query_params.get('pharmacy_id', None)
+        return Pharmacy_Drug.objects.filter(pharmacy_id=slug)
+
 
 
 @api_view(['GET'])
@@ -62,10 +74,8 @@ def pharmacyList(request):
 @api_view(['GET'])
 def pharmacyDetail(request, pk):
     pharmacy = models.Pharmacy.objects.get(id=pk)
-    # coordinates = models.Coordinate.objects.filter(id=pharmacy.coordinate_id)
-    coordinateSerializer = CoordinateSerializer(pharmacy.coordinate_id, many=False)
     serializer = PharmacySerializer(pharmacy, many=False)
-    return Response({"Pharmacy": serializer.data, "Coordinate": coordinateSerializer.data})
+    return Response(serializer.data)
 
 
 @api_view(['POST'])
@@ -95,6 +105,13 @@ def pharmacyDelete(request, pk):
 @api_view(['GET'])
 def phDrugList(request):
     phDrugs = models.Pharmacy_Drug.objects.all()
+    serializer = Pharmacy_DrugSerializer(phDrugs, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def phDrugListId(request, pk):
+    phDrugs = models.Pharmacy_Drug.objects.filter(pharmacy_id=pk)
     serializer = Pharmacy_DrugSerializer(phDrugs, many=True)
     return Response(serializer.data)
 
