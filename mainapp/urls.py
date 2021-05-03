@@ -6,7 +6,8 @@ urlpatterns = [
     path('', views.index),
 
     path('drug-list/', views.drugList, name="drug-list"),
-    path('drug-detail/<int:pk>/', views.drugDetail, name="drug-detail"),
+    path('drug-detail/<str:pk>/', views.drugDetail, name="drug-detail"),
+    path('drug-search/custom/', views.drugListDetailFilter.as_view(), name="drug-search"),
     path('drug-create/', views.drugCreate, name="drug-create"),
     path('drug-update/<int:pk>/', views.drugUpdate, name="drug-update"),
     path('drug-delete/<int:pk>/', views.drugDelete, name="drug-delete"),
@@ -19,6 +20,7 @@ urlpatterns = [
 
 
     path('pharmacy-drug-list/', views.phDrugList, name="pharmacy-drug-list"),
+    path('pharmacy-drug-list/<int:pk>', views.phDrugListId, name="pharmacy-drug-list"),
     path('pharmacy-drug-detail/<int:pk>/', views.phDrugDetail, name="pharmacy-drug-detail"),
     path('pharmacy-drug-create/', views.phDrugCreate, name="pharmacy-drug-create"),
     path('pharmacy-drug-update/<int:pk>/', views.phDrugUpdate, name="pharmacy-drug-update"),
