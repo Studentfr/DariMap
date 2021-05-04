@@ -19,7 +19,13 @@ class PharmacySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Pharmacy
-        fields = ['id', 'name', 'address', 'coordinate_id']
+        fields = ['id', 'name', 'address', 'phone_number', 'description', 'coordinate_id']
+
+
+class PharmacyCreationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pharmacy
+        fields = '__all__'
 
 class PharmacyCreationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,6 +40,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class Pharmacy_DrugSerializer(serializers.ModelSerializer):
     drug_id = DrugSerializer()
+
     class Meta:
         model = Pharmacy_Drug
         fields = '__all__'
@@ -61,4 +68,3 @@ class FavouritePharmacySerializer(serializers.ModelSerializer):
     class Meta:
         model = Favourite_Pharmacy
         fields = '__all__'
-

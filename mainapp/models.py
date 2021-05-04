@@ -11,6 +11,8 @@ class Drug(models.Model):
 class Pharmacy(models.Model):
     name = models.CharField(max_length=150, db_index=True)
     address = models.CharField(max_length=150, default=True)
+    phone_number = models.CharField(max_length=150, default=False)
+    description = models.CharField(max_length=150, default=False)
     coordinate_id = models.ForeignKey('Coordinate', on_delete=models.PROTECT)
     user_id = models.ForeignKey('User', on_delete=models.PROTECT)
 
