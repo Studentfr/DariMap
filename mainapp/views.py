@@ -39,9 +39,16 @@ def drugDetail(request, pk):
 
 @api_view(['POST'])
 def drugCreate(request):
-    serializer = DrugSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
+    new_drug = request.data
+    try:
+        check = models.Drug.objects.get(name=new_drug['name'])
+        serializer = DrugSerializer(instance=check, data=new_drug)
+        if serializer.is_valid():
+            serializer.save()
+    except:
+        serializer = DrugSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
     return Response(serializer.data)
 
 
@@ -125,9 +132,18 @@ def phDrugDetail(request, pk):
 
 @api_view(['POST'])
 def phDrugCreate(request):
-    serializer = Pharmacy_DrugSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
+    new_drug = request.data
+    try:
+        check = models.Pharmacy_Drug.objects.get(drug_id=new_drug['drug_id'], pharmacy_id=new_drug['pharmacy_id'])
+        serializer = Pharmacy_DrugCreationSerializer(instance=check, data=new_drug)
+        if serializer.is_valid():
+            serializer.save()
+    except:
+        serializer = Pharmacy_DrugCreationSerializer(data=new_drug)
+        print(new_drug)
+        if serializer.is_valid():
+            print(new_drug, ' Valid')
+            serializer.save()
     return Response(serializer.data)
 
 
