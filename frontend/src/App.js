@@ -1,16 +1,12 @@
 import React, {useEffect} from 'react'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import Sidebar from "./Components/Sidebar/Sidebar";
+import Map from "./Components/Map/Map";
 
 function App() {
 
-    const [mapConfig, setMapConfig] = React.useState({
-        center: [54.8732, 69.1505],
-        zoom: 13,
-        scrollWheelZoom: true
-    })
-
     const [pharmacies, setPharmacies] = React.useState([])
+    const [pharmacyId, setPharmacyId] = React.useState(0)
+    const [previewVisibility, setPreviewVisibility] = React.useState(false)
 
     useEffect(() => {
         fetch('api/pharmacy-list')
@@ -68,95 +64,18 @@ function App() {
         },
     ]
 
-    /*const [todos, setTodos] = React.useState([])
-    const [loading, setLoading] = React.useState(true)
-
-    useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
-            .then(response => response.json())
-            .then(todos => {
-                setTimeout(() => {
-                    setTodos(todos)
-                    setLoading(false)
-                }, 2000)
-            })
-    }, [])
-
-    function toggleTodo(id) {
-        setTodos(todos.map(todo => {
-            if (todo.id === id) {
-                todo.completed = !todo.completed
-            }
-            return todo
-        }))
+    const getSelectedPharmacyId = (id) => {
+        setPharmacyId(id)
     }
 
-    function removeTodo(id) {
-        setTodos(todos.filter(todo => todo.id !== id))
-    }
-
-    function addTodo(title) {
-        setTodos(todos.concat([{
-            title,
-            id: Date.now(),
-            completed: false
-        }]))
-    }*/
-
-    /*return (
-        <Context.Provider value={{removeTodo}}>
-            <div className="wrapper">
-                <h1>React tutorial</h1>
-                <Modal/>
-
-                <React.Suspense fallback={<p>Loading...</p>}>
-                    <AddTodo onCreate={addTodo}/>
-                </React.Suspense>
-
-                {loading && <Loader/>}
-                {todos.length ?
-                    (<TodoList todos={todos} onToggle={toggleTodo} />) :
-                    (loading ? null : <p>No todos</p>)
-                }
-
-            </div>
-        </Context.Provider>
-    )*/
-
-    const styles = {
-        mapContainer: {
-            height: "100vh"
-        }
+    const togglePreviewVisibility = () => {
+        setPreviewVisibility(!previewVisibility)
     }
 
     return (
         <div>
-            <!--TODO: Implement Sidebar by using https://github.com/Maj07/react-leaflet-example-->
-<!--          <Sidebar/> -->
-            <div>
-                <MapContainer style={styles.mapContainer} center={mapConfig.center} zoom={mapConfig.zoom} scrollWheelZoom={mapConfig.scrollWheelZoom}>
-                    <TileLayer
-                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                    {pharmacies.map((store) => {
-                        return (
-                            <Marker position={[store.coordinate_id.latitude, store.coordinate_id.longitude]}
-                                    key={store.id}
-                                    eventHandlers={{
-                                        click: () => {
-
-                                        },
-                                    }}
-                            >
-                                <Popup>
-                                    <strong>{store.name}</strong>
-                                </Popup>
-                            </Marker>
-                        )
-                    })}
-                </MapContainer>
-            </div>
+            <Sidebar id={pharmacyId} isVisible={previewVisibility} closeDescription={setPreviewVisibility} />
+            <Map pharmacies={pharmacies} onPharmacySelect={getSelectedPharmacyId}/>
         </div>
     )
 }
