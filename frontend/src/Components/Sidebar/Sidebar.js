@@ -3,13 +3,13 @@ import { AiFillCloseCircle } from 'react-icons/ai';
 import "./Sidebar.css"
 
 function Sidebar({id, isVisible, closeDescription}) {
-    let pharmacy = {}
+    const [pharmacy, setPharmacy] = React.useState({})
 
     useEffect(() => {
         fetch(`api/pharmacy-detail/${id}`)
             .then(response => response.json())
-            .then((result) => {
-                pharmacy = result
+            .then((pharmacy) => {
+                setPharmacy(pharmacy)
             },
             (error) => {
                 console.log(error)
@@ -18,12 +18,14 @@ function Sidebar({id, isVisible, closeDescription}) {
 
     return(
         <div className={`preview__container preview__container--${isVisible && id && "active"}`}>
-            <div className="preview__close" eventHandlers={{click: () => {closeDescription(false)}}}>
+            <div className="preview__close" onClick={() => closeDescription(false)}>
                 <AiFillCloseCircle></AiFillCloseCircle>
             </div>
             <div className="preview__picture"></div>
             <div className="preview__description__container">
                 <div className="preview__title">{pharmacy.name}</div>
+                <div className="preview__description">{pharmacy.address}</div>
+                <div className="preview__button">Show Drugs</div>
             </div>
         </div>
     )
