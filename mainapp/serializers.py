@@ -35,6 +35,12 @@ class Pharmacy_DrugSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class Pharmacy_DrugCreationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pharmacy_Drug
+        fields = '__all__'
+
+
 class Favourite_DrugSerializer(serializers.ModelSerializer):
     class Meta:
         model = Favourite_Drug
