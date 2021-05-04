@@ -73,7 +73,6 @@ def drugDelete(request, pk):
 def pharmacyList(request):
     pharmacies = models.Pharmacy.objects.all()
     serializer = PharmacySerializer(pharmacies, many=True)
-    print(serializer.data)
 
     return Response(serializer.data)
 
@@ -87,8 +86,10 @@ def pharmacyDetail(request, pk):
 
 @api_view(['POST'])
 def pharmacyCreate(request):
-    serializer = PharmacySerializer(data=request.data)
+    serializer = PharmacyCreationSerializer(data=request.data)
+    print(request.data)
     if serializer.is_valid():
+        print(request.data, 'valid')
         serializer.save()
     return Response(serializer.data)
 

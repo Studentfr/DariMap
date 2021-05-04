@@ -46,7 +46,7 @@ class Pharmacy_Drug(models.Model):
     drug_id = models.ForeignKey('Drug', on_delete=models.PROTECT)
     pharmacy_id = models.ForeignKey('Pharmacy', on_delete=models.CASCADE)
     amount = models.IntegerField()
-    price = models.IntegerField(unique=True)
+    price = models.IntegerField()
 
     # def __int__(self):
     #     return self.amount
@@ -55,7 +55,7 @@ class Pharmacy_Drug(models.Model):
 class Transaction(models.Model):
     pharmacy_id = models.ForeignKey('Pharmacy', on_delete=models.CASCADE)
     drug_id = models.ForeignKey('Drug', on_delete=models.CASCADE)
-    pharmacy_drug_price = models.ForeignKey('Pharmacy_Drug', on_delete=models.CASCADE, to_field='price')
+    pharmacy_drug_price = models.ForeignKey('Pharmacy_Drug', on_delete=models.CASCADE)
     amount = models.IntegerField()
 
 
