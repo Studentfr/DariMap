@@ -23,7 +23,7 @@
   right: 1rem;
   top: 1rem;
   font-size: 2rem;
-  color: white;
+  color: #000000;
   cursor: pointer;
 }
 
@@ -39,6 +39,7 @@
   font-size: 1rem;
   margin: 1rem auto;
   cursor: pointer;
+  text-align: center;
 }
 
 .preview__title {

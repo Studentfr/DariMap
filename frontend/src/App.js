@@ -66,6 +66,9 @@ function App() {
 
     const getSelectedPharmacyId = (id) => {
         setPharmacyId(id)
+        if (pharmacyId === id || (!previewVisibility && pharmacyId !== id)) {
+            togglePreviewVisibility()
+        }
     }
 
     const togglePreviewVisibility = () => {
