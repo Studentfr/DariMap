@@ -1,12 +1,14 @@
 import React, {useEffect} from 'react'
 import Sidebar from "./Components/Sidebar/Sidebar";
 import Map from "./Components/Map/Map";
+import DrugSearch from "./Components/Sidebar/DrugSearch";
 
 function App() {
 
     const [pharmacies, setPharmacies] = React.useState([])
     const [pharmacyId, setPharmacyId] = React.useState(0)
     const [previewVisibility, setPreviewVisibility] = React.useState(false)
+    const [drugVisibility, setDrugVisibility] = React.useState(false)
 
     useEffect(() => {
         fetch('api/pharmacy-list')
@@ -69,6 +71,7 @@ function App() {
         if (pharmacyId === id || (!previewVisibility && pharmacyId !== id)) {
             togglePreviewVisibility()
         }
+        setDrugVisibility(false)
     }
 
     const togglePreviewVisibility = () => {
@@ -77,7 +80,8 @@ function App() {
 
     return (
         <div>
-            <Sidebar id={pharmacyId} isVisible={previewVisibility} closeDescription={setPreviewVisibility} />
+            <DrugSearch id={pharmacyId} isVisible={drugVisibility} closeDrugDescription={setDrugVisibility}/>
+            <Sidebar id={pharmacyId} isVisible={previewVisibility} closeDescription={setPreviewVisibility} openDrugs={setDrugVisibility} />
             <Map pharmacies={pharmacies} onPharmacySelect={getSelectedPharmacyId}/>
         </div>
     )
