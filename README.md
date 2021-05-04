@@ -1,7 +1,7 @@
-#DariMap
+# DariMap
 
-##Drug
-###['GET'] drug-list 
+## Drug
+### ['GET'] drug-list 
 Gets all drugs
 
 ```
@@ -14,7 +14,7 @@ Gets all drugs
       "name": "paracetamol"
    }
 ```
-###['GET'] drug-detail/1
+### ['GET'] drug-detail/1
 Gets drug on a particular id
 
 ``
@@ -23,7 +23,7 @@ Gets drug on a particular id
     "name": "ibufen"
 }
 ``
-###['POST'] drug-create
+### ['POST'] drug-create
 Creates a drug with consequent id
 
 ``
@@ -40,15 +40,15 @@ Updates drug on a particular id
     "name": "mask"
 }
 ``
-###['DELETE'] drug-delete/1
+### ['DELETE'] drug-delete/1
 Deletes drug on a particular id
 
 ``
 "Drug has deleted successfully"
 ``
 
-##Pharmacy
-###['GET'] pharmacy-list
+## Pharmacy
+### ['GET'] pharmacy-list
 Gets all pharmacies
 ```
 [
@@ -78,7 +78,7 @@ Gets all pharmacies
     }
 ]
 ```
-###['GET'] pharmacy-detail/1
+### ['GET'] pharmacy-detail/1
 Gets pharmacy on a particular id
 
 ```
@@ -97,7 +97,7 @@ Gets pharmacy on a particular id
     }
 }
 ```
-###['POST'] pharmacy-create
+### ['POST'] pharmacy-create
 Creates a pharmacy with consequent id
 
 ``
@@ -105,7 +105,7 @@ Creates a pharmacy with consequent id
       
 }
 ``
-###['POST'] pharmacy-update/1
+### ['POST'] pharmacy-update/1
 Updates pharmacy on a particular id
 
 ``
@@ -113,7 +113,7 @@ Updates pharmacy on a particular id
 
 }
 ``
-###['DELETE'] pharmacy-delete/1
+### ['DELETE'] pharmacy-delete/1
 Deletes pharmacy on a particular id
 
 ``
