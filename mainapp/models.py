@@ -1,3 +1,5 @@
+from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 
 
@@ -20,10 +22,42 @@ class Pharmacy(models.Model):
         return self.name
 
 
-class User(models.Model):
-    username = models.CharField(max_length=150, db_index=True)
+class UserManager(BaseUserManager):
+    def create_user(self, username, role_id, password=None):
+        if not username:
+            raise ValueError('Users must have an username')
+
+        user = self.model(username=username, role_id=role_id)
+
+        user.set_password(password)
+        user.save()
+
+        return user
+
+    def create_superuser(self, password, username):
+        """
+        Creates and saves a superuser with the given email and password.
+        """
+        user = self.create_user(
+            username,
+            role_id=Role.get_role(self),
+            password=password,
+        )
+        user.is_staff = True
+        user.is_superuser = True
+        user.save(using=self._db)
+        return user
+
+
+
+class User(AbstractBaseUser, PermissionsMixin):
+    username = models.CharField(max_length=150, db_index=True, unique=True)
     password = models.CharField(max_length=150, default=False)
     role_id = models.ForeignKey('Role', on_delete=models.PROTECT)
+    is_staff = models.BooleanField(default=False)
+    objects = UserManager()
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = []
 
     def __str__(self):
         return self.username
@@ -35,6 +69,13 @@ class Role(models.Model):
     def __str__(self):
         return self.rolename
 
+    def get_role(self):
+        try:
+            admin = self.objects.get(rolename='Admin')
+        except:
+            admin = Role(rolename='Admin')
+            admin.save()
+        return admin
 
 class Coordinate(models.Model):
     longitude = models.FloatField(max_length=150)
