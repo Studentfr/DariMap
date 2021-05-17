@@ -1,6 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
-from rest_framework import generics, filters
+from rest_framework import generics, filters, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import *
@@ -162,6 +162,11 @@ def phDrugDelete(request, pk):
     phDrug = models.Pharmacy_Drug.objects.get(id=pk)
     phDrug.delete()
     return Response('Drug in the Pharmacy has been deleted successfully')
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 @api_view(['GET'])
