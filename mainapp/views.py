@@ -1,6 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
-from rest_framework import generics, filters
+from rest_framework import generics, filters, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import *
@@ -23,7 +23,7 @@ class drugListDetailFilter(generics.ListAPIView):
     queryset = models.Pharmacy_Drug.objects.all()
     serializer_class = Pharmacy_DrugSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ['^drug_id__name']
+    search_fields = ['$drug_id__name']
     def get_queryset(self):
         slug = self.request.query_params.get('pharmacy_id', None)
         return Pharmacy_Drug.objects.filter(pharmacy_id=slug)
@@ -162,6 +162,11 @@ def phDrugDelete(request, pk):
     phDrug = models.Pharmacy_Drug.objects.get(id=pk)
     phDrug.delete()
     return Response('Drug in the Pharmacy has been deleted successfully')
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 @api_view(['GET'])

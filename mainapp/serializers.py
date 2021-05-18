@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from rest_framework.authtoken.models import Token
+
 from .models import *
 
 
@@ -36,6 +38,12 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
+
+    def create(self, validated_data):
+        user = User.objects.create_user(validated_data['username'], validated_data['role_id'],
+                                        validated_data['password'])
+        Token.objects.create(user=user)
+        return user
 
 
 class Pharmacy_DrugSerializer(serializers.ModelSerializer):
