@@ -19,7 +19,7 @@ function Sidebar({id, isVisible, closeDescription, openDrugs}) {
 
     return(
         <div className={`preview__container preview__container--${isVisible && id && "active"}`}>
-            <div className="preview__close" onClick={() => closeDescription(false)}>
+            <div className="preview__close" onClick={() => closeDescription()}>
                 <AiFillCloseCircle></AiFillCloseCircle>
             </div>
             <div className="preview__picture"></div>
