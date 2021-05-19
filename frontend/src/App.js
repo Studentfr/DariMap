@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import Sidebar from "./Components/Sidebar/Sidebar";
 import Map from "./Components/Map/Map";
 import DrugSearch from "./Components/Sidebar/DrugSearch";
+import Navbar from "./Components/Navbar/Navbar";
 
 function App() {
 
@@ -80,6 +81,7 @@ function App() {
 
     return (
         <div>
+            <Navbar/>
             <DrugSearch id={pharmacyId} isVisible={drugVisibility} closeDrugDescription={setDrugVisibility}/>
             <Sidebar id={pharmacyId} isVisible={previewVisibility} closeDescription={setPreviewVisibility} openDrugs={setDrugVisibility} />
             <Map pharmacies={pharmacies} onPharmacySelect={getSelectedPharmacyId}/>
