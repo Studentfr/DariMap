@@ -24,10 +24,10 @@ class drugListDetailFilter(generics.ListAPIView):
     serializer_class = Pharmacy_DrugSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['$drug_id__name']
+
     def get_queryset(self):
         slug = self.request.query_params.get('pharmacy_id', None)
         return Pharmacy_Drug.objects.filter(pharmacy_id=slug)
-
 
 
 @api_view(['GET'])
@@ -357,3 +357,5 @@ def fvPharmacyDelete(request, pk):
     fvPharmacy = models.Favourite_Pharmacy.objects.get(id=pk)
     fvPharmacy.delete()
     return Response('Favourite pharmacy has been deleted successfully')
+
+

@@ -49,7 +49,6 @@ class UserManager(BaseUserManager):
         return user
 
 
-
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=150, db_index=True, unique=True)
     password = models.CharField(max_length=150, default=False)
@@ -76,6 +75,7 @@ class Role(models.Model):
             admin = Role(rolename='Admin')
             admin.save()
         return admin
+
 
 class Coordinate(models.Model):
     longitude = models.FloatField(max_length=150)
