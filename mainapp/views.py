@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import *
 from mainapp import models
+from rest_framework.authtoken.models import Token
 
 
 @api_view(['GET'])
@@ -359,3 +360,9 @@ def fvPharmacyDelete(request, pk):
     return Response('Favourite pharmacy has been deleted successfully')
 
 
+@api_view(['GET'])
+def get_user(request):
+    slug = request.query_params.get('token', None)
+    u = Token.objects.get(key=slug)
+    print(u.user.id)
+    return HttpResponse(u.user.id)

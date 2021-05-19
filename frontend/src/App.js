@@ -2,6 +2,10 @@ import React, {useEffect} from 'react'
 import Sidebar from "./Components/Sidebar/Sidebar";
 import Map from "./Components/Map/Map";
 import DrugSearch from "./Components/Sidebar/DrugSearch";
+import Navbar from "./Components/Navbar/Navbar";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import Register from "./Components/Register/Register";
+import Login from "./Components/Login/Login";
 
 function App() {
 
@@ -78,12 +82,30 @@ function App() {
         setPreviewVisibility(!previewVisibility)
     }
 
+    const closeDescription = () => {
+        setPreviewVisibility(false)
+        setDrugVisibility(false)
+    }
+
     return (
-        <div>
-            <DrugSearch id={pharmacyId} isVisible={drugVisibility} closeDrugDescription={setDrugVisibility}/>
-            <Sidebar id={pharmacyId} isVisible={previewVisibility} closeDescription={setPreviewVisibility} openDrugs={setDrugVisibility} />
-            <Map pharmacies={pharmacies} onPharmacySelect={getSelectedPharmacyId}/>
-        </div>
+        <Router>
+            <div>
+                <Navbar/>
+                <Switch>
+                    <Route exact path="/">
+                        <DrugSearch id={pharmacyId} isVisible={drugVisibility} closeDrugDescription={setDrugVisibility}/>
+                        <Sidebar id={pharmacyId} isVisible={previewVisibility} closeDescription={closeDescription} openDrugs={setDrugVisibility} />
+                        <Map pharmacies={pharmacies} onPharmacySelect={getSelectedPharmacyId}/>
+                    </Route>
+                    <Route path="/login">
+                        <Login/>
+                    </Route>
+                    <Route path="/register">
+                        <Register/>
+                    </Route>
+                </Switch>
+            </div>
+        </Router>
     )
 }
 
