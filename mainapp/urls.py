@@ -11,6 +11,8 @@ router.register('users', UserViewSet)
 urlpatterns = [
     path('', include(router.urls)),
 
+    path('get-user/', views.get_user, name="get-user"),
+
     path('drug-list/', views.drugList, name="drug-list"),
     path('drug-detail/<str:pk>/', views.drugDetail, name="drug-detail"),
     path('drug-search/custom/', views.drugListDetailFilter.as_view(), name="drug-search"),
