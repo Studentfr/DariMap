@@ -58,7 +58,7 @@ urlpatterns = [
     path('coordinate-delete/<int:pk>/', views.coordinateDelete, name="coordinate-delete"),
     path('coordinate-create/', views.coordinateCreate, name="coordinate-create"),
 
-    path('favourite-pharmacy-list/', views.fvPharmacyList, name="favourite-pharmacy-list"),
+    path('favourite-pharmacy-list/<int:pk>', views.fvPharmacyList, name="favourite-pharmacy-list"),
     path('favourite-pharmacy-detail/<int:pk>/', views.fvPharmacyDetail, name="favourite-pharmacy-detail"),
     path('favourite-pharmacy-update/<int:pk>/', views.fvPharmacyUpdate, name="favourite-pharmacy-update"),
     path('favourite-pharmacy-delete/<int:pk>/', views.fvPharmacyDelete, name="favourite-pharmacy-delete"),

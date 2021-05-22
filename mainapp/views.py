@@ -323,8 +323,8 @@ def transactionDelete(request, pk):
 
 
 @api_view(['GET'])
-def fvPharmacyList(request):
-    fvPharmacies = models.Favourite_Pharmacy.objects.all()
+def fvPharmacyList(request, pk):
+    fvPharmacies = models.Favourite_Pharmacy.objects.filter(user_id=pk)
     serializer = FavouritePharmacySerializer(fvPharmacies, many=True)
     return Response(serializer.data)
 
@@ -365,4 +365,5 @@ def get_user(request):
     slug = request.query_params.get('token', None)
     u = Token.objects.get(key=slug)
     print(u.user.id)
+
     return HttpResponse(u.user.id)
