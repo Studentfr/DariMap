@@ -75,6 +75,12 @@ class TransactionSerializer(serializers.ModelSerializer):
 
 
 class FavouritePharmacySerializer(serializers.ModelSerializer):
+    pharmacy_id = PharmacySerializer()
+    class Meta:
+        model = Favourite_Pharmacy
+        fields = '__all__'
+
+class FavouritePharmacyCreationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Favourite_Pharmacy
         fields = '__all__'
