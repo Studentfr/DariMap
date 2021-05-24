@@ -30,16 +30,13 @@ function Login() {
         fetch(`auth/`, requestOptions)
             .then(response => response.json())
             .then((res) => {
-                if (res.token) {
+                if (res.token && res.user_id) {
                   localStorage.clear();
                   localStorage.setItem('token', res.token);
+                  localStorage.setItem('user_id', res.user_id)
                   setError(false);
                   window.location.replace('/');
                 } else {
-                  setUser({
-                      username: "",
-                      password: ""
-                  })
                   localStorage.clear();
                   setError(true);
                 }
