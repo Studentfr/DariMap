@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import Sidebar from "./Components/Sidebar/Sidebar";
 import Map from "./Components/Map/Map";
 import DrugSearch from "./Components/Sidebar/DrugSearch";
@@ -13,6 +13,7 @@ function App() {
     const [pharmacyId, setPharmacyId] = React.useState(0)
     const [previewVisibility, setPreviewVisibility] = React.useState(false)
     const [drugVisibility, setDrugVisibility] = React.useState(false)
+    const [loggedIn, setLoggedIn] = useState(false)
 
     useEffect(() => {
         fetch('api/pharmacy-list')
@@ -25,6 +26,12 @@ function App() {
                 setPharmacies(mockPharmacies)
                 console.log(error)
             })
+
+        if (localStorage.getItem('token') !== null) {
+            setLoggedIn(true)
+        } else {
+            setLoggedIn(false)
+        }
     }, [])
 
     const mockPharmacies = [
@@ -90,7 +97,7 @@ function App() {
     return (
         <Router>
             <div>
-                <Navbar/>
+                <Navbar loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
                 <Switch>
                     <Route exact path="/">
                         <DrugSearch id={pharmacyId} isVisible={drugVisibility} closeDrugDescription={setDrugVisibility}/>

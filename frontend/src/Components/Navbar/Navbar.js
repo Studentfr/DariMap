@@ -2,7 +2,13 @@ import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 //import "./Navbar.css"
 
-function Navbar() {
+function Navbar({loggedIn, setLoggedIn}) {
+    const signOut = (e) => {
+        e.preventDefault()
+        setLoggedIn(false)
+        localStorage.clear();
+    }
+
     return (
         <nav className="flex items-center justify-between flex-wrap bg-green-300 p-4">
             <div className="flex items-center flex-shrink-0 text-white mr-6">
@@ -26,14 +32,16 @@ function Navbar() {
                 <div className="text-sm lg:flex-grow">
                 </div>
                 <div>
-                   <Link to="/login"
-                       className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                    {loggedIn && <a className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" href="#" onClick={signOut}>Sign Out</a> }
+                    {!loggedIn &&
+                    <Link to="/login"
+                           className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
                         Sign In
-                    </Link>
-                    <Link to="/register"
-                       className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                        Sign Up
-                    </Link>
+                    </Link>}
+                    {!loggedIn && <Link to="/register"
+                    className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                    Sign Up
+                    </Link>}
                 </div>
             </div>
         </nav>
