@@ -1,7 +1,54 @@
-import React from 'react'
+import React, {useState} from 'react'
 import "./Login.css"
 
 function Login() {
+    const [user, setUser] = useState(
+        {
+            username: "",
+            password: ""
+        }
+    )
+    const [error, setError] = useState(false)
+
+    const handleChange = (e) => {
+        const {id, value} = e.target
+        setUser(prevState => ({
+            ...prevState,
+            [id] : value
+        }))
+    }
+
+    const handleSubmitClick = (e) => {
+        e.preventDefault()
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        }
+        fetch(`auth/`, requestOptions)
+            .then(response => response.json())
+            .then((res) => {
+                if (res.token) {
+                  localStorage.clear();
+                  localStorage.setItem('token', res.token);
+                  setError(false);
+                  window.location.replace('/');
+                } else {
+                  setUser({
+                      username: "",
+                      password: ""
+                  })
+                  localStorage.clear();
+                  setError(true);
+                }
+            },
+            (error) => {
+                console.log(error)
+            })
+    }
+
     return (
         <div className={"login"}>
             <div className={"login-triangle"}/>
@@ -9,9 +56,10 @@ function Login() {
             <h2 className={"login-header"}>Log in</h2>
 
             <form className={"login-container"}>
-                <p><input type={"username"} placeholder={"Username"}/></p>
-                <p><input type={"password"} placeholder={"Password"}/></p>
-                <p><input type={"submit"} value={"Log in"}/></p>
+                {error && <p className={"error"}>You have entered incorrect username or password! Please try again.</p>}
+                <p><input id={"username"} type={"username"} placeholder={"Username"} onChange={handleChange} required/></p>
+                <p><input id={"password"} type={"password"} placeholder={"Password"} onChange={handleChange} required/></p>
+                <p><input type={"submit"} value={"Log in"} onClick={handleSubmitClick}/></p>
             </form>
         </div>
     )
