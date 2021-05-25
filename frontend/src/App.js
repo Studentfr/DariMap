@@ -6,6 +6,7 @@ import Navbar from "./Components/Navbar/Navbar";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Register from "./Components/Register/Register";
 import Login from "./Components/Login/Login";
+import Cabinet from "./Components/Cabinet/Cabinet";
 
 function App() {
 
@@ -109,6 +110,9 @@ function App() {
                     </Route>
                     <Route path="/register">
                         <Register/>
+                    </Route>
+                    <Route path="/cabinet">
+                        <Cabinet/>
                     </Route>
                 </Switch>
             </div>

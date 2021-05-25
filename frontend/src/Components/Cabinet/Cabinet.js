@@ -1,5 +1,4 @@
-import "Cabinet.css"
-import "./Util.css"
+import "./Cabinet.css"
 
 function Cabinet() {
     return (
@@ -12,6 +11,8 @@ function Cabinet() {
                             <div className="cell">
                                 Favourite Pharmacies
                             </div>
+                            <div className="cell">
+                            </div>
                         </div>
 
 
@@ -20,6 +21,10 @@ function Cabinet() {
                             <div className="cell" data-title="Pharmacies">
                                 Биосфера
                             </div>
+                            <div className="cell" data-title="Delete">
+                                <button type="button" className="delete">Delete</button>
+                            </div>
+
                         </div>
 
                         <div className="row">
@@ -27,19 +32,20 @@ function Cabinet() {
                             <div className="cell" data-title="Pharmacies">
                                 Центральная аптека
                             </div>
+                            <div className="cell" data-title="Delete">
+                                <button type="button" className="delete">Delete</button>
+                            </div>
                         </div>
 
                         <div className="row">
                             <div className="cell" data-title="Pharmacies">
                                 Инфо+
                             </div>
-                        </div>
-
-                        <div className="row">
-                            <div className="cell" data-title="Pharmacies">
+                            <div className="cell" data-title="Delete">
                                 <button type="button" className="delete">Delete</button>
                             </div>
                         </div>
+
 
                     </div>
                 </div>

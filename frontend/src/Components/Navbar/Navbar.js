@@ -33,6 +33,11 @@ function Navbar({loggedIn, setLoggedIn}) {
                 </div>
                 <div>
                     {loggedIn && <a className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" href="#" onClick={signOut}>Sign Out</a> }
+                    {loggedIn &&
+                    <Link to="/cabinet"
+                          className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                        Cabinet
+                    </Link>}
                     {!loggedIn &&
                     <Link to="/login"
                            className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
