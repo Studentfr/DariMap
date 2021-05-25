@@ -122,3 +122,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'frontend/build/static',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}

@@ -89,3 +89,7 @@ body {
 .register input[type="submit"]:focus {
     border-color: #0d637b;
 }
+
+.error {
+    color: red;
+}
