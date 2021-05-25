@@ -210,8 +210,8 @@ def userDelete(request, pk):
 
 
 @api_view(['GET'])
-def fvDrugList(request):
-    fvDrugs = models.Favourite_Drug.objects.all()
+def fvDrugList(request, pk):
+    fvDrugs = models.Favourite_Drug.objects.filter(user_id = pk)
     serializer = Favourite_DrugSerializer(instance=fvDrugs, many=True)
     return Response(serializer.data)
 
@@ -366,8 +366,9 @@ def get_user(request):
     slug = request.query_params.get('token', None)
     u = Token.objects.get(key=slug)
     print(u.user.id)
-
     return HttpResponse(u.user.id)
+
+
 
 
 class CustomAuthToken(ObtainAuthToken):

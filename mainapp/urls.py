@@ -40,7 +40,7 @@ urlpatterns = [
     path('user-update/<int:pk>/', views.userUpdate, name="user-update"),
     path('user-delete/<int:pk>/', views.userDelete, name="user-delete"),
 
-    path('favourite-drug-list/', views.fvDrugList, name="favourite-drug-list"),
+    path('favourite-drug-list/<int:pk>', views.fvDrugList, name="favourite-drug-list"),
     path('favourite-drug-detail/<int:pk>/', views.fvDrugDetail, name="favourite-drug-detail"),
     path('favourite-drug-create/', views.fvDrugCreate, name="favourite-drug-create"),
     path('favourite-drug-update/<int:pk>/', views.fvDrugUpdate, name="favourite-drug-update"),
