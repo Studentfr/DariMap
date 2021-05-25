@@ -1,32 +1,8 @@
 import "./Cabinet.css"
 import {useEffect, useState} from "react";
 
-function Cabinet() {
-    const [favPharmacies, setFavPharmacies] = useState(
-        [
-            {
-                id: 0,
-                pharmacy_id: {
-                    id: 0,
-                    name: "",
-                    address: "",
-                    phone_number: ""
-                }
-            }
-        ]
-    )
+function Cabinet({favPharmacies, setFavPharmacies}) {
 
-    useEffect(() => {
-        fetch(`api/favourite-pharmacy-list/${localStorage.getItem('user_id')}`)
-            .then(response => response.json())
-            .then((pharmacies) => {
-                setFavPharmacies(pharmacies)
-                console.log(pharmacies)
-            },
-            (error) => {
-                console.log(error)
-            })
-    }, [])
 
     const deleteFavPharmacy = (id) => (e) => {
         e.preventDefault()

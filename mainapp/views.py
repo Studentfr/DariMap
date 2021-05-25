@@ -339,7 +339,7 @@ def fvPharmacyDetail(request, pk):
 
 @api_view(['POST'])
 def fvPharmacyCreate(request):
-    serializer = FavouritePharmacySerializer(data=request.data)
+    serializer = FavouritePharmacyCreationSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)

@@ -27,6 +27,15 @@
   cursor: pointer;
 }
 
+.preview__favourite {
+  position: absolute;
+  right: 3rem;
+  top: 1rem;
+  font-size: 2rem;
+  color: #000000;
+  cursor: pointer;
+}
+
 .preview__button {
   text-decoration: none;
   font-weight: bold;
